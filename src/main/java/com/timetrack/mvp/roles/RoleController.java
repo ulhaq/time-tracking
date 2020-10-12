@@ -24,8 +24,8 @@ public class RoleController {
         List<Role> roles = service.getAllRoles();
 
         for (Role role : roles) {
-            role.add(linkTo(methodOn(this.getClass()).getRole(role.getId())).withSelfRel());
-            role.add(linkTo(methodOn(this.getClass()).getRoleUsers(role.getId())).withRel("users"));
+            role.add(linkTo(methodOn(this.getClass()).getRole(role.getId())).withSelfRel().withType("GET"));
+            role.add(linkTo(methodOn(this.getClass()).getRoleUsers(role.getId())).withRel("users").withType("GET"));
         }
 
         return ResponseEntity.ok(roles);
@@ -35,8 +35,8 @@ public class RoleController {
     public ResponseEntity<Role> getRole(@PathVariable Long id) {
         Role role = service.getRole(id);
 
-        role.add(linkTo(methodOn(this.getClass()).getRole(id)).withSelfRel());
-        role.add(linkTo(methodOn(this.getClass()).getRoleUsers(id)).withRel("users"));
+        role.add(linkTo(methodOn(this.getClass()).getRole(id)).withSelfRel().withType("GET"));
+        role.add(linkTo(methodOn(this.getClass()).getRoleUsers(id)).withRel("users").withType("GET"));
 
         return ResponseEntity.ok(role);
     }
@@ -46,7 +46,7 @@ public class RoleController {
         List<User> users = service.getRoleUsers(id);
 
         for (User user : users) {
-            user.add(linkTo(methodOn(UserController.class).getUser(user.getId())).withSelfRel());
+            user.add(linkTo(methodOn(UserController.class).getUser(user.getId())).withSelfRel().withType("GET"));
         }
 
         return ResponseEntity.ok(users);
