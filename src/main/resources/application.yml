@@ -1,0 +1,19 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
+spring:
+  jpa:
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/timetrack
+    username: postgres
+    password: ${DATABASE_PASSWORD}
+  flyway:
+    url: jdbc:postgresql://localhost:5432/timetrack
+    user: postgres
+    password: ${DATABASE_PASSWORD}
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: 3600000
