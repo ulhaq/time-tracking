@@ -25,7 +25,6 @@ public class UserController {
 
         for (User user : users) {
             user.add(linkTo(methodOn(this.getClass()).getUser(user.getId())).withSelfRel().withType("GET"));
-            user.add(linkTo(methodOn(this.getClass()).getUserRoles(user.getId())).withRel("roles").withType("GET"));
         }
 
         return ResponseEntity.ok(users);
