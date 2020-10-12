@@ -1,6 +1,5 @@
 package com.timetrack.mvp;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.MessageSource;
@@ -27,10 +26,5 @@ public class MvpApplication {
 		validatorFactoryBean.setValidationMessageSource(messageSource);
 		
 		return validatorFactoryBean;
-	}
-
-	@Bean
-	public ModelMapper modelMapper() {
-	    return new ModelMapper();
 	}
 }
