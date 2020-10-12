@@ -48,30 +48,29 @@ public class AuthService {
         return jwtUtils.generateJwtToken(authentication);
     }
 
-    public User register(@Valid RegisterRequest user) throws UserAlreadyExists {
+    public User register(@Valid RegisterRequest user) {
         if (repo.existsByUsername(user.getUsername())) {
             throw new UserAlreadyExists("This username is already taken");
         }
-        
+
         if (repo.existsByEmail(user.getEmail())) {
             throw new UserAlreadyExists("This email is already taken");
         }
 
-        User User = new User();
-        BeanUtils.copyProperties(user, User);
-
-        encodePassword(User, user);
+        User newUser = new User();
+        BeanUtils.copyProperties(user, newUser);
+        encodePassword(newUser, user);
 
         Set<ERole> userRoles = user.getRoles();
         if (userRoles != null) {
             Set<Role> roles = roleRepo.findByNameIn(userRoles);
-            User.setRoles(roles);
+            newUser.setRoles(roles);
         }
 
-        return repo.save(User);
+        return repo.save(newUser);
     }
 
-    private void encodePassword(User User, RegisterRequest user) {
-        User.setPassword(passwordEncoder.encode(user.getPassword()));
+    private void encodePassword(User newUser, RegisterRequest user) {
+        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
     }
 }
