@@ -4,7 +4,6 @@ import java.util.Set;
 
 import javax.validation.Valid;
 
-import com.timetrack.mvp.exceptions.UserAlreadyExists;
 import com.timetrack.mvp.payloads.LoginRequest;
 import com.timetrack.mvp.payloads.RegisterRequest;
 import com.timetrack.mvp.roles.ERole;
@@ -51,14 +50,6 @@ public class AuthService {
     }
 
     public User register(@Valid RegisterRequest user) {
-        if (repo.existsByUsername(user.getUsername())) {
-            throw new UserAlreadyExists("This username is already taken");
-        }
-
-        if (repo.existsByEmail(user.getEmail())) {
-            throw new UserAlreadyExists("This email is already taken");
-        }
-
         User newUser = new User();
         BeanUtils.copyProperties(user, newUser);
         encodePassword(newUser, user);

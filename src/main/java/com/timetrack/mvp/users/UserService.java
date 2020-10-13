@@ -16,6 +16,14 @@ public class UserService {
         this.repo = repo;
     }
 
+    public boolean isUsernameTaken(String username) {
+        return repo.existsByUsername(username);
+    }
+    
+    public boolean isEmailTaken(String email) {
+        return repo.existsByEmail(email);
+    }
+
     public List<User> getAllUsers() {
         return repo.findAll();
     }
