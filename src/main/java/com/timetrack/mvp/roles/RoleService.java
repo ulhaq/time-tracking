@@ -5,14 +5,16 @@ import java.util.List;
 import com.timetrack.mvp.exceptions.NoRecordFoundException;
 import com.timetrack.mvp.users.User;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RoleService {
-    @Autowired
-    RoleRepository repo;
+    private RoleRepository repo;
+
+    public RoleService(RoleRepository repo) {
+        this.repo = repo;
+    }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     public List<Role> getAllRoles() {

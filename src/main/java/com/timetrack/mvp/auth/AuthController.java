@@ -8,7 +8,6 @@ import com.timetrack.mvp.payloads.LoginRequest;
 import com.timetrack.mvp.payloads.RegisterRequest;
 import com.timetrack.mvp.users.User;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,8 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class AuthController {
-    @Autowired
-    AuthService authservise;
+    private AuthService authservise;
+    
+    public AuthController(AuthService authservise) {
+        this.authservise = authservise;
+    }
 
     @PostMapping("/auth/login")
     public ResponseEntity<JwtResponse> login(@Valid @RequestBody LoginRequest loginRequest) {

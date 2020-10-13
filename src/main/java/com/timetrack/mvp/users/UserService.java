@@ -6,13 +6,15 @@ import java.util.Set;
 import com.timetrack.mvp.exceptions.NoRecordFoundException;
 import com.timetrack.mvp.roles.Role;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-    @Autowired
-    UserRepository repo;
+    private UserRepository repo;
+
+    public UserService(UserRepository repo) {
+        this.repo = repo;
+    }
 
     public List<User> getAllUsers() {
         return repo.findAll();

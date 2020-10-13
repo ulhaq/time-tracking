@@ -7,7 +7,6 @@ import com.timetrack.mvp.users.User;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,9 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class RoleController {
+    private RoleService service;
 
-    @Autowired
-    RoleService service;
+    public RoleController(RoleService service) {
+        this.service = service;
+    }
 
     @GetMapping("roles")
     public ResponseEntity<List<Role>> getAllRoles() {

@@ -14,7 +14,6 @@ import com.timetrack.mvp.users.User;
 import com.timetrack.mvp.users.UserRepository;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,20 +23,23 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService {
-    @Autowired
-    UserRepository repo;
+    private UserRepository repo;
 
-    @Autowired
-    RoleRepository roleRepo;
+    private RoleRepository roleRepo;
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 
-    @Autowired
-    BCryptPasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder passwordEncoder;
 
-    @Autowired
-    JwtUtils jwtUtils;
+    private JwtUtils jwtUtils;
+
+    public AuthService(UserRepository repo, RoleRepository roleRepo, AuthenticationManager authenticationManager, BCryptPasswordEncoder passwordEncoder, JwtUtils jwtUtils) {
+        this.repo = repo;
+        this.roleRepo = roleRepo;
+        this.authenticationManager = authenticationManager;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtils = jwtUtils;
+    }
 
     public String login(LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
