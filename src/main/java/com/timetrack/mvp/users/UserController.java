@@ -1,12 +1,13 @@
 package com.timetrack.mvp.users;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 import java.util.Set;
 
 import com.timetrack.mvp.roles.Role;
 import com.timetrack.mvp.roles.RoleController;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +23,10 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = service.getAllUsers();
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        List<UserDto> users = service.getAllUsers();
 
-        for (User user : users) {
+        for (UserDto user : users) {
             user.add(linkTo(methodOn(this.getClass()).getUser(user.getId())).withSelfRel().withType("GET"));
         }
 
@@ -33,8 +34,8 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Long id) {
-        User user = service.getUser(id);
+    public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
+        UserDto user = service.getUser(id);
 
         user.add(linkTo(methodOn(this.getClass()).getUser(id)).withSelfRel().withType("GET"));
         user.add(linkTo(methodOn(this.getClass()).getUserRoles(id)).withRel("roles").withType("GET"));

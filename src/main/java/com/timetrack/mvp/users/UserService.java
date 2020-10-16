@@ -24,15 +24,15 @@ public class UserService {
         return repo.existsByEmail(email);
     }
 
-    public List<User> getAllUsers() {
-        return repo.findAll();
+    public List<UserDto> getAllUsers() {
+        return repo.findAllProjectedBy();
     }
 
-    public User getUser(Long id) {
-        return repo.findById(id).orElseThrow(() -> new NoRecordFoundException("User not found"));
+    public UserDto getUser(Long id) {
+        return repo.findProjectedById(id).orElseThrow(() -> new NoRecordFoundException("User not found"));
     }
 
     public Set<Role> getUserRoles(Long id) {
-        return this.getUser(id).getRoles();
+        return repo.findById(id).orElseThrow(() -> new NoRecordFoundException("User not found")).getRoles();
     }
 }

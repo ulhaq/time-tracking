@@ -19,13 +19,13 @@ import com.timetrack.mvp.roles.Role;
 
 import org.springframework.hateoas.RepresentationModel;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@Data
+@EqualsAndHashCode(callSuper = false)
 @Table(name = "users")
 @Entity
-@Getter
-@Setter
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User extends RepresentationModel<User> {
     @Id
