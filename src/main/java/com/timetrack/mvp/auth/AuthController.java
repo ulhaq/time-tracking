@@ -2,7 +2,6 @@ package com.timetrack.mvp.auth;
 
 import javax.validation.Valid;
 
-import com.timetrack.mvp.exceptions.UserAlreadyExists;
 import com.timetrack.mvp.payloads.JwtResponse;
 import com.timetrack.mvp.payloads.LoginRequest;
 import com.timetrack.mvp.payloads.RegisterRequest;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthController {
     private AuthService authservise;
-    
+
     public AuthController(AuthService authservise) {
         this.authservise = authservise;
     }
@@ -30,7 +29,7 @@ public class AuthController {
     }
 
     @PostMapping("/auth/register")
-    public ResponseEntity<User> register(@Valid @RequestBody RegisterRequest registerRequest) throws UserAlreadyExists {
+    public ResponseEntity<User> register(@Valid @RequestBody RegisterRequest registerRequest) {
         User user = authservise.register(registerRequest);
 
         return ResponseEntity.ok(user);
