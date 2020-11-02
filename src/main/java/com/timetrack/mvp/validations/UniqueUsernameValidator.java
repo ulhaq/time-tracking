@@ -22,7 +22,7 @@ public class UniqueUsernameValidator implements ConstraintValidator<UniqueUserna
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
         try {
-            return value != null && !userService.isUsernameTaken(value);
+            return !userService.isUsernameTaken(value);
         } catch (Exception e) {
             log.error(String.format("UniqueUsername Validation failed : %s", e.getMessage()));
         }

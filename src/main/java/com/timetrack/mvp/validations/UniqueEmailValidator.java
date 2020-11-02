@@ -21,8 +21,9 @@ public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, St
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
+        System.out.println("#######################"+value);
         try {
-            return value != null && !userService.isEmailTaken(value);
+            return !userService.isEmailTaken(value);
         } catch (Exception e) {
             log.error(String.format("UniqueEmail Validation failed : %s", e.getMessage()));
         }
